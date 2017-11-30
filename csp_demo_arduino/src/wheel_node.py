@@ -10,7 +10,7 @@ class arduinoWheel(object):
         self.pub_car_cmd = rospy.Publisher("~car_cmd", Twist2DStamped, queue_size=1)
         # =========== subscriber ===========
         # subscribe to topic "result" (you should see arduino_node.py)
-        self.sub_result = rospy.Subscriber("~result", BoolStamped, self.cbresult)
+        self.sub_result = rospy.Subscriber("~input", BoolStamped, self.cbresult)
 
    # =========== subscribe distance from arduino ===========
     def cbresult(self, msg):
@@ -24,7 +24,7 @@ class arduinoWheel(object):
             cmd.v = -0.5
 
         self.pub_car_cmd(cmd)    
-
+        print "test\n"
 if __name__ == "__main__":
     rospy.init_node("arduino_wheel", anonymous = False)
     arduino_node = arduinoWheel()
