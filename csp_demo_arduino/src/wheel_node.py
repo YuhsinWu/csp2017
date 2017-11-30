@@ -15,16 +15,15 @@ class arduinoWheel(object):
    # =========== subscribe distance from arduino ===========
     def cbresult(self, msg):
         cmd = Twist2DStamped()
-        if !msg.data:
+        if msg.data==False:
             print "go forward"
-            cmd.v = 0.5
+            cmd.v = 0.2
 
         else:
             print "go backward"
-            cmd.v = -0.5
+            cmd.v = -0.2
 
-        self.pub_car_cmd(cmd)    
-        print "test\n"
+        self.pub_car_cmd.publish(cmd)    
 if __name__ == "__main__":
     rospy.init_node("arduino_wheel", anonymous = False)
     arduino_node = arduinoWheel()
