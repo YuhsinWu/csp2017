@@ -15,7 +15,7 @@
 	<arg name="/camera/raw/rect" default="true"/>
 	<arg name="apriltags" default="true"/>
 	<arg name="arduino" default="true"/>
-	<arg name="wheel" default="false"/>
+	<arg name="wheel" default="true"/>
 	<!-- end switch args -->
 
 

@@ -7,7 +7,7 @@ from std_msgs.msg import Float32, Int32
 class arduinoROS(object):
     def __init__(self):
         self.dis = 0.0 # distance from ultrasound
-        self.using_apriltags = True
+        self.using_apriltags = False
 
         # =========== publisher ===========
         self.pub_led = rospy.Publisher("/arduino/sub/led", Int32, queue_size=10, latch=True)
@@ -21,20 +21,22 @@ class arduinoROS(object):
     def cbDis(self, msg):
         self.dis = msg.data # self.dis = distance from arduino
         print "distance = ", self.dis
-        '''
+        
         led_cmd = Int32()
         drive = BoolStamped()
         if self.dis < 30.0:
-            #led_cmd.data = ???
-            #self.pub_led??? (you should publish led_cmd)
-            #drive.data = True
+            led_cmd.data = 1
+            self.pub_led.publish(led_cmd) 
+            drive.data = True
             #publish 'drive' to topic "~result"
+            self.pub_result.publish(drive)
         else:
-            #led_cmd.data = ???
-            #self.pub_led??? (you should publish led_cmd)
-            #drive.data = False
+            led_cmd.data = 0
+            self.pub_led.publish(led_cmd)
+            drive.data = False
             #publish 'drive to topic "~result"
-        '''
+            self.pub_result.publish(drive)
+        
 
     # =========== subscribe tag information ===========
     def cbTags(self, msg):
